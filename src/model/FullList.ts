@@ -11,22 +11,28 @@ interface List {
 
 export default class FullList implements List {
   static instance: FullList = new FullList();
+
   private constructor(private _list: ListItem[] = []) {}
+
   get list(): ListItem[] {
     return this._list;
   }
 
   load(): void {
-    const list: string | null = localStorage.getItem("myList");
-    if (list) {
-      const parsedList: { _id: string; _item: string; _checked: boolean }[] =
-        JSON.parse(list);
+    const storedList: string | null = localStorage.getItem("myList");
+    if (typeof storedList !== "string") return;
 
-      parsedList.forEach((item) => {
-        const newListItem = new ListItem(item._id, item._item, item._checked);
-        FullList.instance.addItem(newListItem);
-      });
-    }
+    const parsedList: { _id: string; _item: string; _checked: boolean }[] =
+      JSON.parse(storedList);
+
+    parsedList.forEach((itemObj) => {
+      const newListItem = new ListItem(
+        itemObj._id,
+        itemObj._item,
+        itemObj._checked
+      );
+      FullList.instance.addItem(newListItem);
+    });
   }
 
   save(): void {
