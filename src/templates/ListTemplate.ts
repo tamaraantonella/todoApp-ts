@@ -8,23 +8,30 @@ interface DOMList {
 
 export default class ListTemplate implements DOMList {
   ul: HTMLUListElement;
+
   static instance: ListTemplate = new ListTemplate();
+
   private constructor() {
     this.ul = document.getElementById("listItems") as HTMLUListElement;
   }
+
   clear(): void {
     this.ul.innerHTML = "";
   }
+
   render(fullList: FullList): void {
     this.clear();
+
     fullList.list.forEach((item) => {
       const li = document.createElement("li") as HTMLLIElement;
-      li.className = "item";
+      li.className = "item flex justify-between gap-3 items-center";
 
       const check = document.createElement("input") as HTMLInputElement;
       check.type = "checkbox";
       check.id = item.id;
       check.checked = item.checked;
+      li.append(check);
+
       check.addEventListener("change", () => {
         item.checked = !item.checked;
         fullList.save();
@@ -32,17 +39,19 @@ export default class ListTemplate implements DOMList {
 
       const label = document.createElement("label") as HTMLLabelElement;
       label.htmlFor = item.id;
-      label.innerText = item.item;
+      label.textContent = item.item;
+      li.append(label);
 
       const button = document.createElement("button") as HTMLButtonElement;
       button.className = "button";
-      button.innerText = "X";
+      button.textContent = "X";
+      li.append(button);
+
       button.addEventListener("click", () => {
         fullList.removeItem(item.id);
         this.render(fullList);
       });
 
-      li.append(check, label, button);
       this.ul.append(li);
     });
   }
