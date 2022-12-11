@@ -8,11 +8,11 @@
     <title>Vite + TS</title>
     <script type="module" src="/src/main.ts" defer></script>
   </head>
-  <body>
-    <main>
-      <h1 class="absolute left-[-10000px]">My List</h1>
-      <section class="sticky top-0 mb-4">
-        <h2 class="absolute left-[-10000px]">New Item Entry</h2>
+  <body class="bg-gray-900 ">
+    <main class="flex flex-col gap-5 mx-auto max-w-4xl my-12 font-sans">
+      <h1 class="mb-3 text-3xl text-white">My List</h1>
+      <section class=" mb-4 ">
+        <h2 class="my-5 text-white text-2xl">New Item Entry</h2>
         <form class="flex gap-1 text-2xl" id="itemEntryForm">
           <label for="newItem" class="absolute left-[-10000px]"
             >Enter a new to do item</label
@@ -34,9 +34,9 @@
         </form>
       </section>
 
-      <section class="text-2xl flex-grow flex flex-col gap-4">
+      <section class="text-2xl flex-grow flex flex-col gap-4 text-white">
         <header class="flex justify-between items-end">
-          <h2 id="listName">List</h2>
+          <h2 id="listName" class="text-white">List</h2>
           <button
             id="clearItemsButton"
             class="rounded-[10px] min-w-[48px] min-h-[48px] bg-transparent text-white p-1"
